@@ -1,4 +1,4 @@
-import * as nodeMailer from 'nodemailer'
+import * as nodeMailer from 'nodemailer';
 
 const transporter = nodeMailer.createTransport({
     host: 'smtp.gmail.com',
@@ -14,32 +14,20 @@ const transporter = nodeMailer.createTransport({
     }
 })
 
-export const mail = function (req, res) {
-    console.log(req.body);
+export const mail = function (req, res, next) {
     const mailInfo = transporter.sendMail({
-        from: 'aaa@gmail.com',
-        to: "s3yoon17@gmail.com",
-        subject: req.name,
-        text: req.message,
+        from: req.body.email,
+        to: "sykim@jfpartners.co.kr",
+        subject: req.body.name,
+        text: req.body.message,
         html: ''
     });
     
-    try {
-        transporter.sendMail(mailInfo, (error, info) => {
-            if (error) {
-                console.error(error);
-            } else {
-                console.log(info.response);
-            }
-        });
-      } catch (err) {
-        
-      }
-
-}
-
-module.exports = {
-    sendMail:function(req, res) {
-        
-    }
+    // transporter.sendMail(mailInfo, (error, info) => {
+    //     if (error) {
+    //         console.error(error);
+    //     } else {
+    //         console.log(info.response);
+    //     }
+    // });
 }
