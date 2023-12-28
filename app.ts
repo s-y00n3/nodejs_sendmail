@@ -23,7 +23,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', indexRouter.test);
 app.get('/users', usersRouter.test);
-app.get('/mail', mailRouter.mail);
+app.post('/mail', function (req, res) {
+  let post = req.body;
+  let name = post.name;
+  let message = post.message;
+
+  res.render('mail', {
+    name: name,
+    message: message
+  })
+  //res.send(mailRouter.mail);
+  //console.log(req.body);
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
