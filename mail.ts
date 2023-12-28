@@ -7,27 +7,32 @@ const transporter = nodeMailer.createTransport({
     auth: {
         user: 's3yoon17@gmail.com',
         pass: 'mrjb obpp pejj umcl',
-    },
-    from: {
-        from: 's3yoon17@gmail.com',
-        subject : '메일 TEST'
     }
 })
 
 export const mail = function (req, res, next) {
-    const mailInfo = transporter.sendMail({
-        from: req.body.email,
+    let data = req.body;
+    let email = data.email;
+    let name = data.name;
+    let message = data.message;
+
+    const validCheck = email.indexOf("@");
+
+    if (!validCheck || validCheck.length === 0 || validCheck === -1) {
+        return res.status(400).json({message: '유효한 이메일이 아님'});
+    }
+
+    transporter.sendMail({
+        from: email,
         to: "sykim@jfpartners.co.kr",
-        subject: req.body.name,
-        text: req.body.message,
+        subject: name,
+        text: message,
         html: ''
+    }, (error, info) => {
+        if (error) {
+            console.log(error);
+        }
+        res.status(200).json({"message" : 'success'});
+        transporter.close();
     });
-    
-    // transporter.sendMail(mailInfo, (error, info) => {
-    //     if (error) {
-    //         console.error(error);
-    //     } else {
-    //         console.log(info.response);
-    //     }
-    // });
 }
