@@ -1,9 +1,9 @@
 # nodejs_sendmail
-nodejs + express + ejs
+nodejs + express + ejs + mongodb
 
 기반으로 Gmail 전송하는 기본 프로그램
 
-홈 화면에서 이름, 이메일, 내용 작성하면 메일 전송됨.
+홈 화면에서 이름, 이메일, 내용 작성하면 메일 전송되고 MongoDB에 저장됨.
 
 # ts-express
 A ts-based express generator
