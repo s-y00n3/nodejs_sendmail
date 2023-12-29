@@ -1,4 +1,7 @@
 import * as nodeMailer from 'nodemailer';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const transporter = nodeMailer.createTransport({
     host: 'smtp.gmail.com',
@@ -6,10 +9,22 @@ const transporter = nodeMailer.createTransport({
     secure: false,
     // google 계정에서 발급
     auth: {
-        user: 's3yoon17@gmail.com', 
-        pass: 'mrjb obpp pejj umcl',
+        user: process.env.GOOGLEID, 
+        pass: process.env.GOOGLEPW,
     }
-})
+});
+
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://127.0.0.1:27017/test');
+
+const Schema = mongoose.Schema;
+const mailSchema = new Schema({
+    name: String,
+    email: String,
+    message: String
+});
+
+const Mail = mongoose.model('Mail', mailSchema);
 
 export const mail = function (req, res, next) {
     let data = req.body;
@@ -33,6 +48,14 @@ export const mail = function (req, res, next) {
         if (error) {
             console.log(error);
         }
+        const mailMongo = new Mail({
+            name : name,
+            email: email,
+            message: message
+        });
+        
+        mailMongo.save();
+        
         res.status(200).json({"message" : 'success'});
         transporter.close();
     });
