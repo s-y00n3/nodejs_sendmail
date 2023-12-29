@@ -4,8 +4,9 @@ const transporter = nodeMailer.createTransport({
     host: 'smtp.gmail.com',
     port : 587,
     secure: false,
+    // google 계정에서 발급
     auth: {
-        user: 's3yoon17@gmail.com',
+        user: 's3yoon17@gmail.com', 
         pass: 'mrjb obpp pejj umcl',
     }
 })
@@ -19,7 +20,7 @@ export const mail = function (req, res, next) {
     const validCheck = email.indexOf("@");
 
     if (!validCheck || validCheck.length === 0 || validCheck === -1) {
-        return res.status(400).json({message: '유효한 이메일이 아님'});
+        return res.status(400).json({message: '유효한 이메일 아님'});
     }
 
     transporter.sendMail({

@@ -23,16 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', indexRouter.test);
 app.get('/users', usersRouter.test);
-// app.post('/mail', function (req, res) {
-//   let post = req.body;
-//   let name = post.name;
-//   let message = post.message;
-
-//   res.render('mail', {
-//     name: name,
-//     message: message
-//   })
-// });
 
 app.post('/mail', mailRouter.mail);
 
