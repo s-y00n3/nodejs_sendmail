@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/core.css" />
+    <link rel="stylesheet" href="../css/list.css" />
+  </head>
+    <body class="list-content">
+        <div>
+            <a class="button" href="/admin/logout">Logout</a>
+        </div>
+        <div class="list-content">
+            <table>
+                <thead>
+                <tr>
+                    <th>이름</th>
+                    <th>연락처</th>
+                    <th>희망 지역</th>
+                    <th>문의 내용</th>
+                    <th>날짜</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <% if(data.length){
+                        for(var i = 0; i< data.length; i++) {%>  
+                        <tr>
+                          <td><%= data[i].name %></th>
+                          <td><%= data[i].telephone %></td>
+                          <td><%= data[i].country %></td>
+                          <td><%= data[i].message %></td>
+                          <td><%= moment(data[i].date).format("YYYY-MM-DD H:m:s") %></td>
+                        </tr>
+                    <% }                                 
+                    }else{ %>
+                        <tr>
+                            <td colspan="3">데이터가 없습니다.</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+           
+        </div>  
+    </body>
+</html>
